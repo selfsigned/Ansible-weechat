@@ -1,0 +1,27 @@
+- hosts: all
+  become: true # sudo
+  tasks:
+    - name: add the weechat repo key
+      apt_key:
+        keyserver: hkp://p80.pool.sks-keyservers.net:80
+        id: 11E9DE8848F2B65222AA75B8D1820DB22A11534E
+        state: present
+
+    - name: add the weechat repo
+      apt_repository:
+        repo:  deb https://weechat.org/ubuntu {{ ansible_distribution_release }} main
+        state: present
+
+    - name: update and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: safe
+
+    - name: install weechat and OTR deps
+      apt:
+        name:
+          - weechat-curses
+          - weechat-plugins
+          - weechat-python
+          - python-potr
+        state: present
