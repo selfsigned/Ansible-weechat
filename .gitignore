@@ -1,2 +1,8 @@
 target
 *.retry
+
+# Terraform
+*.terraform
+*.tfvars
+*.tfstate
+*.tfstate.backup
